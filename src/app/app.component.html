@@ -1,0 +1,9 @@
+<div class="comments-container">
+  <app-comments
+    *ngFor="let comment of comments; let i = index"
+    [comment]="comment"
+    [comments]="comments"
+    [commentIndex]="i"
+  ></app-comments>
+  <app-add-comment (commentCreated)="onCommentAdded($event)"></app-add-comment>
+</div>

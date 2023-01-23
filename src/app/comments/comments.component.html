@@ -1,0 +1,85 @@
+<div class="box">
+  <div class="wrapper">
+    <div class="score">
+      <img
+        src="./assets/images/icon-plus.svg"
+        alt="plus"
+        class="score__plus"
+        (click)="increaseCommentScore()"
+      />
+      <div class="score__number">{{ comment.score }}</div>
+      <img
+        src="./assets/images/icon-minus.svg"
+        alt="minus"
+        class="score__minus"
+        (click)="decreaseCommentScore()"
+      />
+    </div>
+    <div class="user">
+      <img src="{{ comment.user.image.img }}" alt="user" class="user__img" />
+      <p class="user__name">{{ comment.user.username }}</p>
+      <p>{{ comment.createdAt }}</p>
+    </div>
+    <div class="control">
+      <button class="reply" (click)="openReplyBox()">
+        <i class="fa-solid fa-reply"></i>
+        <span>Reply</span>
+      </button>
+      <button
+        class="delete"
+        *ngIf="comment.user.username == mainUser"
+        (click)="appendPopup()"
+      >
+        <i class="fa-solid fa-trash"></i>
+        <span>Delete</span>
+      </button>
+      <button
+        class="edit"
+        *ngIf="comment.user.username == mainUser"
+        (click)="makeCommentEditable()"
+      >
+        <i class="fa-solid fa-pen"></i>
+        <span>Edit</span>
+      </button>
+    </div>
+    <div class="text" #commentText [contentEditable]="false">
+      {{ comment.content }}
+    </div>
+    <button
+      type="button"
+      class="update"
+      (click)="updateCommentContent()"
+      *ngIf="comment.user.username === mainUser && showUpdateButton"
+    >
+      Update
+    </button>
+    <ng-container *ngTemplateOutlet="deletePopup"></ng-container>
+  </div>
+  <div class="reply-wrapper" *ngIf="comment.replies.length">
+    <app-reply
+      *ngFor="let reply of comment.replies; let i = index"
+      [replyIndex]="i"
+      [reply]="reply"
+      [comments]="comments"
+      [comment]="comment"
+    ></app-reply>
+  </div>
+  <app-add-reply
+    *ngIf="showReplyBox"
+    [comments]="comments"
+    [comment]="comment"
+    (replyCreated)="onReplyCreated($event)"
+  ></app-add-reply>
+</div>
+<div class="overlay" *ngIf="overlayActive"></div>
+<ng-template #deletePopup>
+  <div class="popup" *ngIf="popupActive">
+    <h3>Delete comment</h3>
+    <p>
+      Are you sure you want to delete this comment? This will remove the comment
+      and can't be undone
+    </p>
+    <button class="yes" id="yes" (click)="deleteComment()">YES,DELETE</button>
+    <button class="no" id="no" (click)="appendPopup()">NO,CANCEL</button>
+  </div>
+</ng-template>

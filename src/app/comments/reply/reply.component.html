@@ -1,0 +1,76 @@
+<div class="comment-replies">
+  <div class="score">
+    <img
+      src="./assets/images/icon-plus.svg"
+      alt="plus"
+      class="score score__plus"
+      (click)="increaseReplyScore()"
+    />
+    <div class="score__number">{{ reply.score }}</div>
+    <img
+      src="./assets/images/icon-minus.svg"
+      alt="minus"
+      class="score score__minus"
+      (click)="decreaseReplyScore()"
+    />
+  </div>
+  <div class="control">
+    <button class="reply" (click)="openReplyBox()">
+      <i class="fa-solid fa-reply"></i>
+      <span>Reply</span>
+    </button>
+    <button
+      class="delete"
+      *ngIf="reply.user.username == mainUser"
+      (click)="appendPopupOnReply()"
+    >
+      <i class="fa-solid fa-trash"></i>
+      <span>Delete</span>
+    </button>
+    <button
+      class="edit"
+      *ngIf="reply.user.username == mainUser"
+      (click)="makeReplyEditable()"
+    >
+      <i class="fa-solid fa-pen"></i>
+      <span>Edit</span>
+    </button>
+  </div>
+  <div class="user">
+    <img src="{{ reply.user.image.img }}" alt="user" class="user__img" />
+    <p class="user__name">{{ reply.user.username }}</p>
+    <div class="user__you" *ngIf="reply.user.username == mainUser">You</div>
+    <p>{{ reply.createdAt }}</p>
+  </div>
+  <p class="text" #replyText [contentEditable]="false">
+    <span class="replyTo">@{{ reply.replyingTo }}</span>
+    {{ reply.content }}
+  </p>
+  <button
+    type="button"
+    class="update"
+    (click)="updateReplyContent()"
+    *ngIf="replyUpdateActive"
+  >
+    Update
+  </button>
+  <ng-container *ngTemplateOutlet="deletePopupReply"></ng-container>
+</div>
+<app-add-reply
+  *ngIf="showReplyBoxForReply"
+  [comments]="comments"
+  [comment]="comment"
+  (replyCreated)="onReplyOfReplyCreated($event)"
+></app-add-reply>
+<div class="overlay" *ngIf="overlayActiveOnReply"></div>
+<ng-template #deletePopupReply>
+  <div class="popup" *ngIf="popupActiveOnReply">
+    <h3>Delete comment</h3>
+    <p>
+      Are you sure you want to delete this comment? This will remove the comment
+      and can't be undone
+    </p>
+    <button class="yes" id="yes" (click)="deleteReply()">YES,DELETE</button>
+    <button class="no" id="no" (click)="appendPopupOnReply()">NO,CANCEL</button>
+  </div>
+</ng-template>

@@ -1,0 +1,131 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap");
+$primary-color: hsl(228, 33%, 97%);
+$color-danger: hsl(358, 79%, 66%);
+$color-blue: hsl(238, 40%, 52%);
+@mixin controlBtns($color) {
+  border: none;
+  background-color: transparent;
+  font-family: "Rubik";
+  margin-right: 0.4rem;
+  color: $color;
+  font-weight: bold;
+  cursor: pointer;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  min-height: 100%;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+body {
+  min-height: 100vh;
+  width: 100%;
+  background-color: $primary-color;
+}
+main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.delete {
+  @include controlBtns($color-danger);
+}
+.edit {
+  @include controlBtns($color-blue);
+}
+.reply {
+  @include controlBtns($color-blue);
+}
+.button-primary {
+  color: $primary-color;
+  background-color: $color-blue;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+.overlay {
+  width: 100%;
+  min-height: 100%;
+  z-index: 1;
+  background-color: hsl(211, 10%, 45%);
+  opacity: 0.2;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+.popup {
+  z-index: 2;
+  position: fixed;
+  display: grid;
+  gap: 1rem;
+  grid-template-areas:
+    "heading heading"
+    "question question"
+    "no yes";
+  top: 50%;
+  left: 50%;
+  font-family: "Rubik";
+  max-width: 25%;
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 8px;
+  padding: 1rem;
+  transform: translate(-50%, -50%);
+}
+.popup h3 {
+  grid-area: heading;
+  color: hsl(212, 24%, 26%);
+  font-weight: bold;
+}
+.popup button {
+  color: hsl(0, 0%, 100%);
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+}
+.popup p {
+  grid-area: question;
+  color: hsl(211, 10%, 45%);
+}
+.yes {
+  grid-area: yes;
+  background-color: hsl(358, 79%, 66%);
+  cursor: pointer;
+}
+.no {
+  grid-area: no;
+  background-color: hsl(211, 10%, 45%);
+  cursor: pointer;
+}
+.update {
+  grid-column: 3;
+  grid-row: 3;
+  justify-self: end;
+  background-color: hsl(238, 40%, 52%);
+  border: none;
+  color: hsl(0, 0%, 100%);
+  font-family: "Rubik";
+  padding: 0.6rem;
+  margin-right: 0.4rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.comments-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 50%;
+  margin: auto;
+  margin-bottom: 1rem;
+}
