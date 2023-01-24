@@ -7,7 +7,14 @@ import { Comment, Reply } from '../comment-types.model';
 })
 export class CommentsComponent {
   @Input() comments: Comment[] = [];
-  @Input() comment: any = {};
+  @Input() comment: Comment = {
+    id: 0,
+    content: '',
+    createdAt: '',
+    user: { image: { img: '' }, username: '' },
+    replies: [],
+    score: 0,
+  };
   @Input() commentIndex: number = 0;
   @ViewChild('commentText') commentText: any;
   mainUser: string = 'juliusomo';

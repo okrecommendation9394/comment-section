@@ -1,5 +1,6 @@
 .reply-container {
-  width: 100%;
+  //width: 100%;
+  width: 50vw;
   display: grid;
   grid-template-areas: "image text btn";
   grid-template-columns: min-content auto min-content;

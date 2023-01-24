@@ -7,7 +7,20 @@ import { Comment, Reply } from 'src/app/comment-types.model';
 })
 export class ReplyComponent {
   @Input() comments: Comment[] = [];
-  @Input() reply: any = {};
+  @Input() reply: any = {
+    id: 0,
+    content: '',
+    createdAt: '',
+    replyingTo: '',
+    replies: [],
+    score: 0,
+    user: {
+      image: {
+        img: '',
+      },
+      username: '',
+    },
+  };
   @Input() comment: any;
   @Input() replyIndex: number = 0;
   @ViewChild('replyText') replyText: any;
