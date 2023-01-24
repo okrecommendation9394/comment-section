@@ -7,7 +7,7 @@ import { Comment, Reply } from 'src/app/comment-types.model';
 })
 export class ReplyComponent {
   @Input() comments: Comment[] = [];
-  @Input() reply: any = {
+  @Input() reply: Reply = {
     id: 0,
     content: '',
     createdAt: '',
@@ -21,7 +21,14 @@ export class ReplyComponent {
       username: '',
     },
   };
-  @Input() comment: any;
+  @Input() comment: Comment = {
+    id: 0,
+    content: '',
+    createdAt: '',
+    user: { image: { img: '' }, username: '' },
+    replies: [],
+    score: 0,
+  };
   @Input() replyIndex: number = 0;
   @ViewChild('replyText') replyText: any;
   mainUser: string = 'juliusomo';
@@ -50,8 +57,6 @@ export class ReplyComponent {
   }
   onReplyOfReplyCreated(reply: Reply) {
     this.comment.replies.push(reply);
-    //this.reply.replies.push(reply);
-    console.log(this.comments);
   }
   appendPopupOnReply() {
     this.popupActiveOnReply = !this.popupActiveOnReply;

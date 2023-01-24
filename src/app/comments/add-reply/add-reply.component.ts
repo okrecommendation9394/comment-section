@@ -7,7 +7,14 @@ import { Comment, Reply } from 'src/app/comment-types.model';
 })
 export class AddReplyComponent {
   @Input() comments: Comment[] = [];
-  @Input() comment: any = {};
+  @Input() comment: Comment = {
+    id: 0,
+    content: '',
+    createdAt: '',
+    user: { image: { img: '' }, username: '' },
+    replies: [],
+    score: 0,
+  };
   @Output() replyCreated = new EventEmitter<Reply>();
   replyText: string = '';
   id: number = 0;
